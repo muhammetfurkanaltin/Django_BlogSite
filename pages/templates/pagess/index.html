@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+{% block page_title %}AnaSayfa{% endblock page_title %}
+{% block content %}
+{% if user.is_authenticated %}
+{% for contents in contents %}
+  <div class="container">
+    <h2>{{ contents.title }}</h2>
+    <p class="author">Yazar: {{ contents.author }} | {{ contents.created_at }}</p>
+    <p>
+      {{ contents.description }}
+    </p>
+  </div>
+{% endfor %}
+{% else %}
+  <div class="container">
+    <h2>Giriş Yapmadınız</h2>
+    <p>
+      Lütfen 
+      <a href="{% url 'user_login' %}">giriş yapın.</a>
+    </p>
+  </div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,166 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog | {% block page_title %}{% endblock page_title %}</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background-color: #333;
+      color: white;
+      padding: 15px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .logo img {
+      height: 80px;
+    }
+
+    .menu-toggle {
+      display: none;
+      font-size: 24px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      color: white;
+    }
+
+    nav.actions {
+      display: flex;
+      gap: 15px;
+    }
+
+    nav.actions a {
+      color: white;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 18px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 30px auto;
+      background: white;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .container p {
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+      word-break: break-word;
+    }
+
+    h1, h2 {
+      color: #333;
+    }
+
+    .author {
+      font-style: italic;
+      color: #777;
+      margin-bottom: 20px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 15px;
+      background: #333;
+      color: white;
+    }
+    html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    }
+
+
+
+main {
+  flex: 1;
+}
+
+
+
+    /* Mobil görünüm için */
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: block;
+      }
+
+      nav.actions {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        margin-top: 10px;
+        background-color: #444;
+        padding: 10px;
+        border-radius: 8px;
+      }
+
+      nav.actions.show {
+        display: flex;
+      }
+
+      nav.actions a {
+        padding: 8px 0;
+        border-bottom: 1px solid #555;
+      }
+
+      nav.actions a:last-child {
+        border-bottom: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <a href="{% url 'index' %}">
+        <img src="{% static 'img/Beykoz-Universitesi-Logo-Small.png' %}" alt="Logo">
+      </a>
+    </div>
+
+    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+
+    <nav class="actions" id="navActions">
+      {% if user.is_authenticated %}
+        {% if user.is_superuser %}
+          <a href="{% url 'create_blog' %}"><span>✍️</span> Blog Ekle</a>
+        {% endif %}
+        <a href="{% url 'user_logout' %}"><span>🚪</span> Çıkış</a>
+      {% else %}
+        <a href="{% url 'user_login' %}"><span>🔑</span> Giriş</a>
+        <a href="{% url 'user_register' %}"><span>📝</span> Kayıt</a>
+      {% endif %}
+    </nav>
+  </header>
+
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer>
+    &copy; 2025 BLOG-Husman - Tüm Hakları Saklıdır.
+  </footer>
+
+  <script>
+    function toggleMenu() {
+      const nav = document.getElementById('navActions');
+      nav.classList.toggle('show');
+    }
+  </script>
+</body>
+</html>

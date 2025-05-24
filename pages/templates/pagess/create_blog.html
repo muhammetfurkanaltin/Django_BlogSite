@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+{% load static %}
+{% block page_title %}
+    Kurs Ekle
+{% endblock page_title %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <form action="{% url 'create_blog' %}" method="POST" novalidate enctype="multipart/form-data">
+            {% csrf_token %}
+            {% for field in form %}
+            <div class="{% if field.errors %} invalid {% endif %}">
+                {% if field.errors %}<div>{{ field.errors }}</div>{% endif %}
+                    <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+            </div>
+            {% endfor %}
+            
+            {% comment %} <div class="{% if form.title.errors %}invalid{% endif %}">
+                {{ form.title.errors }}
+                <label class="form-label" for="{{form.title.id_for_label}}">Title</label>
+                {{form.title}}
+            </div>
+            <div class="{% if form.description.errors %}invalid{% endif %}">
+                {{ form.description.errors }}
+                <label class="form-label" for="{{form.description.id_for_label}}">description</label>
+                {{form.description}}
+            </div>
+            {% endcomment %}
+            <button type="submit">Kurs Ekle</button>
+            </form>
+        </div>
+    </div>
+{% endblock content %}

@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+{% load static %}
+{% block page_title %}
+    Register
+{% endblock page_title %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <h1>Register</h1>
+            <form method="post">
+                {% csrf_token %}
+                {% include 'partials/_form.html' %}
+                <button type="submit">Register</button>
+            </form>
+        </div>
+    </div>
+{% endblock content %}
