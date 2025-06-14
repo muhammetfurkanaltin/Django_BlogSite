@@ -77,6 +77,8 @@ WSGI_APPLICATION = 'BlogSite.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+# Veri Tabanı Entegre Ayari 
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
